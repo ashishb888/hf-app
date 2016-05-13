@@ -1,0 +1,52 @@
+<ion-view side="right" view-title="Address" title="Address" hide-back-button="true" hide-nav-bar="false">
+  <ion-nav-buttons side="left">
+    <button class="button" ui-sref="signin">
+      <i class="xlarge ion-android-arrow-back"></i>
+    </button>
+  </ion-nav-buttons>
+  <ion-content class="">
+    <div class="padding">
+      <div class="logo center">
+      </div>
+    </div>
+    <div class="list">
+      <form class="" name="addressForm" novalidate>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            City
+          </div>
+          <select disabled="true" ng-model="addressCtrl.sa.city">
+            <option ng-repeat="c in addressCtrl.cityArr">{{c}}</option>
+          </select>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Area
+          </div>
+          <select ng-model="addressCtrl.sa.area">
+            <option ng-repeat="a in addressCtrl.areaArr">{{a}}</option>
+          </select>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Sector</span>
+          <input type="text" placeholder="Sector" ng-model="addressCtrl.sa.sector" ng-required="true" ng-maxlength="5">
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Residence
+          </div>
+          <select ng-model="addressCtrl.sa.residence" ng-required="true">
+            <option ng-repeat="r in addressCtrl.residenceArr">{{r}}</option>
+          </select>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">{{addressCtrl.sa.residence}} address</span>
+          <input type="text" placeholder="{{addressCtrl.sa.residence}} address" ng-model="addressCtrl.sa.residenceAddr" ng-required="true" ng-minlength="3">
+        </label>
+        <button class="button button-full button-assertive" ng-disabled="addressForm.$invalid" ng-click="addressCtrl.setAddress();">
+          Submit
+        </button>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

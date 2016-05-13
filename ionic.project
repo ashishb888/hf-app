@@ -1,0 +1,12 @@
+{
+  "name": "hf-app",
+  "app_id": "21f78505",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}
