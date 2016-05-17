@@ -9,8 +9,8 @@
 
     function signup(req) {
       logger.debug("signup() service");
-      return Ionic.Auth.signup(req);
-      //return $http.post(sc.ws + '/signup', JSON.stringify(req), sc.httpReq.config);
+      //return Ionic.Auth.signup(req);
+      return $http.post(sc.ws + '/signup', JSON.stringify(req), sc.httpReq.config);
     }
 
     return ss;

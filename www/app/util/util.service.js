@@ -4,41 +4,24 @@
 
     function utilService($ionicPopup, starterConfig, $http, $state, $log, $q) {
       // Variables section
+      var us = this;
       var logger = $log;
 
       // Declare services here
-      var services = {
-        sweetAlert: sweetAlert,
-        reloadScreen: reloadScreen,
-        retryService: retryService,
-        isAppOnlineService: isAppOnlineService,
-        getLogger: getLogger,
-        errorHandler: errorHandler,
-        logReqResp: logReqResp,
-        initSQLite: initSQLite,
-        initDB: initDB,
-        executeQuery: executeQuery,
-        selectQuery: selectQuery,
-        insertQuery: insertQuery
-      };
-
-      // Return services object
-      return services;
+      us.appAlert= appAlert;
+      us.reloadScreen= reloadScreen;
+      us.retryService= retryService;
+      us.isAppOnlineService= isAppOnlineService;
+      us.getLogger= getLogger;
+      us.errorHandler= errorHandler;
+      us.logReqResp= logReqResp;
+      us.initSQLite= initSQLite;
+      us.initDB= initDB;
+      us.executeQuery= executeQuery;
+      us.selectQuery= selectQuery;
+      us.insertQuery= insertQuery;
 
       /*  */
-      function getInitData() {
-        logger.debug("getInitData() service");
-        var initData;
-        try {
-          initData = JSON.parse(localStorage.initData);
-          utilData.countryName = initData.ccodemap_country_name;
-          utilData.countryCode = initData.ccodemap_country_code;
-          utilData.currency = initData.mcc_currency;
-        } catch (exception) {
-          logger.debug("exception: " + exception);
-        }
-        return initData;
-      }
 
       /* Logs every request's data */
       function logReqResp(data, key) {
@@ -152,9 +135,10 @@
         }
       }
 
+
       /* Shows ionic alertPopup, and on the click of button it redirects to the state
        passed as parameter. */
-      function sweetAlert(msg, state, title) {
+      function appAlert(msg, state, title) {
         var alertPopup = $ionicPopup.alert({
           title: (title == null || title == undefined) ? "Error" : title,
           template: msg
@@ -165,6 +149,7 @@
           }
         });
       }
+
 
       function initDB(dbName, dbVersion, dbDescription, dbSize) {
         logger.debug("initDB service");
@@ -261,6 +246,6 @@
 
     }
 
-
+    return us;
   }
 })();

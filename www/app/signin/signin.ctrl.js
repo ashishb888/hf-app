@@ -1,9 +1,9 @@
 (function() {
   angular.module('starter').controller('SigninCtrl', SigninCtrl);
 
-  SigninCtrl.$inject = ['starterConfig', 'utilService', '$state', '$scope'];
+  SigninCtrl.$inject = ['starterConfig', 'utilService', '$state', '$scope', 'signinService'];
 
-  function SigninCtrl(sc, utilService, $state, $scope) {
+  function SigninCtrl(sc, utilService, $state, $scope, signinService) {
     // Variables section
     var logger = utilService.getLogger();
     logger.debug("SigninCtrl start");
@@ -40,9 +40,8 @@
     function signin() {
       logger.debug("signin starts");
       var req = {};
-      req.email = "as@aa.aa";
-      req.password = signinCtrl.sf.password;
-      var promise = Ionic.Auth.login('basic', {
+      req.data = signinCtrl.sf;
+      /*var promise = Ionic.Auth.login('basic', {
         'remember': true
       }, req);
       promise.then(function(sucResp) {
@@ -57,7 +56,23 @@
         } catch (exception) {
           logger.error("exception: " + exception);
         }
+      }, function(errResp) {});*/
+      var promise = signinService.signin(req);
+      promise.then(function(sucResp) {
+        try {
+          logger.debug("success");
+          var resp = sucResp.data;
+
+          if (resp.status !== sc.httpStatus.SUCCESS) {
+            logger.debug("ERROR");
+            return;
+          }
+          logger.debug("SUCCESS");
+        } catch (exception) {
+          logger.error("exception: " + exception);
+        }
       }, function(errResp) {});
+
       /*if (signinCtrl.isAddressPresent) {
         $state.go(sc.hfStates.placeorder);
       }else{
