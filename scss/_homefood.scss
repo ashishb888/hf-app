@@ -1,0 +1,39 @@
+@import "mixins";
+
+/* Overriding positive */
+.button.button-positive {
+  background-color: #ef473a !important;
+}
+
+.topper {
+  margin-top: 10%;
+}
+
+.c-center {
+    margin: auto;
+}
+
+.xlarge {
+  font-size: x-large;
+}
+
+.logo {
+  @extend .c-center;
+  content: url("../img/homemade.png");
+  width: 75%;
+  @include border-radius(15px);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.popup {
+    background-color: #f0f0f0 !important;
+    border: 1px solid #ddd;
+    @include btn-rounded-corner(5px);
+}
+
+.popup-head {
+    border-bottom: 1px solid #ddd !important;
+}

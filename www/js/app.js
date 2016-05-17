@@ -9,14 +9,14 @@ var envLs = {
 
 /* Global URLs for all environments */
 var urls = {
-  prod: "http://ws.sweet.payin.mobi/sweet/web/public/index.php",
-  uat: "http://ws.sweet.payin.mobi/sweet/web/public/index.php",
-  dev: "http://dev.sweet.merce.co",
+  prod: "",
+  uat: "",
+  dev: "",
   local: "http://10.1.1.167:8000",
-  tcUrl: "http://static.sweet.payin.mobi/support/Terms_and_conditions.html",
-  prodStaticResUrl: "http://static.sweet.payin.mobi/sweet/web/public",
-  devStaticResUrl: "http://dev.sweet.merce.co",
-  uatStaticResUrl: "http://ws.sweet.payin.mobi/sweet/web/public/index.php"
+  tcUrl: "",
+  prodStaticResUrl: "",
+  devStaticResUrl: "",
+  uatStaticResUrl: ""
 };
 
 // Ionic Starter App
@@ -25,7 +25,7 @@ var urls = {
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers'])
+angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers','ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -294,4 +294,30 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers'])
 
     $urlRouterProvider.otherwise('/signin');
   console.debug("config() end");
+}).controller('DashCtrl', function($scope) {
+
+  var deploy = new Ionic.Deploy();
+
+  // Update app code with new release from Ionic Deploy
+  $scope.doUpdate = function() {
+    deploy.update().then(function(res) {
+      console.log('Ionic Deploy: Update Success! ', res);
+    }, function(err) {
+      console.log('Ionic Deploy: Update error! ', err);
+    }, function(prog) {
+      console.log('Ionic Deploy: Progress... ', prog);
+    });
+  };
+
+  // Check Ionic Deploy for new code
+  $scope.checkForUpdates = function() {
+    console.log('Ionic Deploy: Checking for updates');
+    deploy.check().then(function(hasUpdate) {
+      console.log('Ionic Deploy: Update available: ' + hasUpdate);
+      $scope.hasUpdate = hasUpdate;
+    }, function(err) {
+      console.error('Ionic Deploy: Unable to check for updates', err);
+    });
+  }
+
 });
