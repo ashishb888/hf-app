@@ -9,7 +9,7 @@
 
     function signin(req) {
       logger.debug("signin() service");
-      return $http.post(sc.ws + '/signin', JSON.stringify(req), sc.httpReq.config);
+      return $http.post(sc.ws + '/signin', req, sc.httpReq.config);
     }
 
     return ss;

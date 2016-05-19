@@ -12,12 +12,12 @@
 
     function setAddress(req) {
       logger.debug("setAddress() service");
-      return $http.post(sc.ws + '/address', JSON.stringify(req), sc.httpReq.config);
+      return $http.post(sc.ws + '/address', req, sc.httpReq.config);
     }
 
     function getAddress(req) {
       logger.debug("getAddress() service");
-      return $http.get(sc.ws + '/address', JSON.stringify(req), sc.httpReq.config);
+      return $http.get(sc.ws + '/address', req, sc.httpReq.config);
     }
 
     return as;
