@@ -7,6 +7,7 @@
     // Variables section
     var addressCtrl = this;
     var logger = utilService.getLogger();
+    var req = {};
     logger.debug("AddressCtrl starts");
     addressCtrl.sa = {};
     addressCtrl.cityArr = ["Mumbai"];
@@ -24,32 +25,32 @@
     function setAddress() {
       try {
         logger.debug("setAddress function");
-        logger.debug("address: " + JSON.stringify(addressCtrl.sa));
-
-        $state.go(sc.hfStates.placeorder);
-        return;
 
         if (!utilService.isAppOnlineService()) {
-            utilService.retryService(screenTitle, screenState);
+            utilService.appAlert(sc.msgs.noConnMsg);
             return;
         }
 
-        var promise = addressService.setAddress(addressCtrl.sa);
+        req.data = addressCtrl.sa;
+        logger.debug("req: " + JSON.stringify(req));
+        return;
+        var promise = addressService.setAddress(req);
         promise.then(function(sucResp){
             try {
                 var resp = sucResp.data;
 
                 if (resp.status !== SUCCESS) {
-                    utilService.showAlert(resp);
+                    utilService.appAlert(resp.messages);
                     return;
                 }
+                $state.go(sc.hfStates.placeorder);
             } catch (exception) {
-                logger.debug("exception: " + exception);
+                logger.error("exception: " + exception);
             }
         }, function(errResp){
         });
       } catch (exception) {
-        logger.debug("exception: " + exception);
+        logger.error("exception: " + exception);
       }
     }
 

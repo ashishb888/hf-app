@@ -39,8 +39,15 @@
 
     function signin() {
       logger.debug("signin starts");
+
+      if (!utilService.isAppOnlineService()) {
+          utilService.appAlert(sc.msgs.noConnMsg);
+          return;
+      }
+
       var req = {};
       req.data = signinCtrl.sf;
+
       /*var promise = Ionic.Auth.login('basic', {
         'remember': true
       }, req);
@@ -64,10 +71,10 @@
           var resp = sucResp.data;
 
           if (resp.status !== sc.httpStatus.SUCCESS) {
-            logger.debug("ERROR");
+            utilService.appAlert(resp.messages);
             return;
           }
-          logger.debug("SUCCESS");
+          $state.go(sc.hfStates.address);
         } catch (exception) {
           logger.error("exception: " + exception);
         }

@@ -25,9 +25,9 @@ var urls = {
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'starter.controllers'])
+angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, utilService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -40,6 +40,27 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'starter.
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+  });
+
+  /* Logs every request. */
+  $rootScope.$on('logReqResp', function(event, data, key) {
+    utilService.logReqResp(data, key);
+  });
+
+  $rootScope.$on('errorHandler', function(event, respErr) {
+    utilService.errorHandler(respErr);
+  });
+
+  /* Shows ionicLoading */
+  $rootScope.$on('loadingShow', function() {
+    $ionicLoading.show({
+      template: 'Loading...',
+    });
+  });
+
+  /* Hides ionicLoading */
+  $rootScope.$on('loadingHide', function() {
+    $ionicLoading.hide();
   });
 })
 
@@ -111,11 +132,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'starter.
       request(req) {
         return req;
       },
-
       response(resp) {
         return resp;
       },
-
       responseError(respErr) {
         if (respErr.config !== undefined || respErr.config !== null) {
           if (respErr.config.url.endsWith("/login")) {
@@ -142,7 +161,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'starter.
         }
         return req;
       },
-
       response(resp) {
         if (resp.config !== undefined || resp.config !== null) {
           if (urlCheck(resp.config.url)) {
@@ -151,7 +169,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'starter.
         }
         return resp;
       },
-
       responseError(respErr) {
         if (respErr.config !== undefined || respErr.config !== null) {
           if (urlCheck(respErr.config.url)) {
@@ -169,27 +186,22 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'starter.
       request(req) {
         if (req !== undefined || req !== null) {
           if (urlCheck(req.url)) {
-            //console.debug("loggerInterceptor: req: " + JSON.stringify(req.data));
             $rootScope.$broadcast("logReqResp", req.data, "req");
           }
         }
         return req;
       },
-
       response(resp) {
         if (resp.config !== undefined || resp.config !== null) {
           if (urlCheck(resp.config.url)) {
-            // console.debug("loggerInterceptor: resp: " + JSON.stringify(resp.data));
             $rootScope.$broadcast("logReqResp", resp.data, "resp");
           }
         }
         return resp;
       },
-
       responseError(respErr) {
         if (respErr.config !== undefined || respErr.config !== null) {
           if (urlCheck(respErr.config.url)) {
-            // console.debug("loggerInterceptor: respErr: " + JSON.stringify(respErr));
             $rootScope.$broadcast("logReqResp", respErr, "respErr");
           }
         }
@@ -292,7 +304,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'starter.
       controller: "AddressCtrl as addressCtrl"
     });
 
-    $urlRouterProvider.otherwise('/signin');
+  $urlRouterProvider.otherwise('/signin');
   console.debug("config() end");
 }).controller('DashCtrl', function($scope) {
 

@@ -17,11 +17,9 @@
         logger.debug("signup starts");
 
         if (!utilService.isAppOnlineService()) {
-            utilService.retryService(screenTitle, screenState);
+            utilService.appAlert(sc.msgs.noConnMsg);
             return;
         }
-
-        logger.debug("signupCtrl.sf: " + JSON.stringify(signupCtrl.sf));
 
         var req = {};
         req.data = signupCtrl.sf;
@@ -33,10 +31,11 @@
             try {
                 var resp = sucResp.data;
                 if (resp.status !== sc.httpStatus.SUCCESS) {
-                    logger.debug("ERROR");
+                    utilService.appAlert(resp.messages);
                     return;
                 }
-                logger.debug("SUCCESS");
+
+                utilService.appAlert(resp.messages, sc.hfStates.signin, sc.msgs.success);
             } catch (exception) {
                 logger.error("exception: " + exception);
             }

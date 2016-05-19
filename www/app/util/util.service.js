@@ -2,7 +2,7 @@
     angular.module('starter').factory('utilService', utilService);
     utilService.$inject = ['$ionicPopup', 'starterConfig', '$http', '$state', '$log', '$q'];
 
-    function utilService($ionicPopup, starterConfig, $http, $state, $log, $q) {
+    function utilService($ionicPopup, sc, $http, $state, $log, $q) {
       // Variables section
       var us = this;
       var logger = $log;
@@ -21,19 +21,17 @@
       us.selectQuery= selectQuery;
       us.insertQuery= insertQuery;
 
-      /*  */
-
       /* Logs every request's data */
       function logReqResp(data, key) {
         switch (key) {
-          case sweetConfig.httpKeys.req:
-            logger.debug(sweetConfig.httpKeys.req + ": " + JSON.stringify(data));
+          case sc.httpKeys.req:
+            logger.debug(sc.httpKeys.req + ": " + JSON.stringify(data));
             break;
-          case sweetConfig.httpKeys.resp:
-            logger.debug(sweetConfig.httpKeys.resp + ": " + JSON.stringify(data));
+          case sc.httpKeys.resp:
+            logger.debug(sc.httpKeys.resp + ": " + JSON.stringify(data));
             break;
-          case sweetConfig.httpKeys.respErr:
-            logger.debug(sweetConfig.httpKeys.respErr + ": " + JSON.stringify(data));
+          case sc.httpKeys.respErr:
+            logger.debug(sc.httpKeys.respErr + ": " + JSON.stringify(data));
             break;
           default:
             logger.debug("loggerInterceptor: " + JSON.stringify(data));
@@ -48,24 +46,24 @@
             if (respErr.data.error != null || respErr.data.error != undefined) {
               showTokenError(respErr.data.error);
             } else {
-              sweetAlert(sweetConfig.sweetMsgs.globalCommonError);
+              sweetAlert(sc.sweetMsgs.globalCommonError);
             }
             break;
           case 401:
             showTokenError(respErr.data.error);
             break;
           case 500:
-            if (respErr.config.url.indexOf(sweetConfig.sweetWIUs.offerdetails) >= 0) {
-              sweetAlert(sweetConfig.sweetMsgs.globalCommonError, sweetConfig.sweetStates.offerslist);
+            if (respErr.config.url.indexOf(sc.sweetWIUs.offerdetails) >= 0) {
+              sweetAlert(sc.sweetMsgs.globalCommonError, sc.sweetStates.offerslist);
             } else {
-              sweetAlert(sweetConfig.sweetMsgs.globalCommonError);
+              sweetAlert(sc.sweetMsgs.globalCommonError);
             }
             break;
           default:
-            if (respErr.config.url.indexOf(sweetConfig.sweetWIUs.offerdetails) >= 0) {
-              sweetAlert(sweetConfig.sweetMsgs.globalCommonError, sweetConfig.sweetStates.offerslist);
+            if (respErr.config.url.indexOf(sc.sweetWIUs.offerdetails) >= 0) {
+              sweetAlert(sc.sweetMsgs.globalCommonError, sc.sweetStates.offerslist);
             } else {
-              sweetAlert(sweetConfig.sweetMsgs.globalCommonError);
+              sweetAlert(sc.sweetMsgs.globalCommonError);
             }
         }
       }
@@ -73,17 +71,17 @@
       /* Shows token related error messages */
       function showTokenError(error) {
         switch (error) {
-          case sweetConfig.tokenErrorCodes.token_not_provided:
-            sweetAlert(sweetConfig.tokenErrorMsgs.token_not_provided, sweetConfig.sweetStates.signin);
+          case sc.tokenErrorCodes.token_not_provided:
+            sweetAlert(sc.tokenErrorMsgs.token_not_provided, sc.sweetStates.signin);
             break;
-          case sweetConfig.tokenErrorCodes.token_expired:
-            sweetAlert(sweetConfig.tokenErrorMsgs.token_expired, sweetConfig.sweetStates.signin);
+          case sc.tokenErrorCodes.token_expired:
+            sweetAlert(sc.tokenErrorMsgs.token_expired, sc.sweetStates.signin);
             break;
-          case sweetConfig.tokenErrorCodes.token_invalid:
-            sweetAlert(sweetConfig.tokenErrorMsgs.token_invalid, sweetConfig.sweetStates.signin);
+          case sc.tokenErrorCodes.token_invalid:
+            sweetAlert(sc.tokenErrorMsgs.token_invalid, sc.sweetStates.signin);
             break;
           default:
-            sweetAlert(sweetConfig.tokenErrorMsgs.token_not_provided, sweetConfig.sweetStates.signin);
+            sweetAlert(sc.tokenErrorMsgs.token_not_provided, sc.sweetStates.signin);
         }
       }
 
