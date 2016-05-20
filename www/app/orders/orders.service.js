@@ -7,11 +7,16 @@
     var os = this;
 
     os.placeOrder = placeOrder;
+    os.orders = orders;
 
     function placeOrder(req) {
       logger.debug("placeOrder() service");
-      return $http.post(sc.ws + '/placeorder', JSON.stringify(req),
-        sc.httpReq.config);
+      return $http.post(sc.ws + '/placeorder', JSON.stringify(req), sc.httpReq.config);
+    }
+
+    function orders() {
+      logger.debug("orders() service");
+      return $http.get(sc.ws + '/orders', sc.httpReq.config);
     }
 
     return os;

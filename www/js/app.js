@@ -12,7 +12,7 @@ var urls = {
   prod: "",
   uat: "",
   dev: "",
-  local: "http://10.1.1.167:8000",
+  local: "/api/",
   tcUrl: "",
   prodStaticResUrl: "",
   devStaticResUrl: "",
@@ -63,7 +63,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core'])
     $ionicLoading.hide();
   });
 
-  $rootScope.$on('$stateChangeStart', function(event, toState) {
+  /*$rootScope.$on('$stateChangeStart', function(event, toState) {
     utilService.getLogger().debug("stateChangeStart function");
 
     var isSignedIn = JSON.parse(lsService.get("isSignedIn"));
@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core'])
         $state.go("menu.placeorder");
       }
     }
-  });
+  });*/
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider, $logProvider, $sceDelegateProvider) {

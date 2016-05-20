@@ -17,7 +17,7 @@
 
     function getAddress(req) {
       logger.debug("getAddress() service");
-      return $http.get(sc.ws + '/address', req, sc.httpReq.config);
+      return $http.get(sc.ws + '/address' + '/' + req, sc.httpReq.config);
     }
 
     return as;
