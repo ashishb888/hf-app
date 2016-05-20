@@ -1,9 +1,9 @@
 (function() {
   angular.module('starter').controller('MenuCtrl', MenuCtrl);
 
-  MenuCtrl.$inject = ['starterConfig', 'utilService', '$state', '$ionicPopup'];
+  MenuCtrl.$inject = ['starterConfig', 'utilService', '$state', '$ionicPopup', 'lsService'];
 
-  function MenuCtrl(sc, utilService, $state, $ionicPopup) {
+  function MenuCtrl(sc, utilService, $state, $ionicPopup, lsService) {
     // Variables section
     var logger = utilService.getLogger();
     logger.debug("MenuCtrl start");
@@ -24,6 +24,7 @@
         confirmPopup.then(function(res) {
           if (res) {
             logger.debug("Signed out");
+            lsService.set("isSignedIn", false);
             $state.go(sc.hfStates.signin);
           }
         });

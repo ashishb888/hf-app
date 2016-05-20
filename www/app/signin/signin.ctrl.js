@@ -1,9 +1,9 @@
 (function() {
   angular.module('starter').controller('SigninCtrl', SigninCtrl);
 
-  SigninCtrl.$inject = ['starterConfig', 'utilService', '$state', '$scope', 'signinService'];
+  SigninCtrl.$inject = ['starterConfig', 'utilService', '$state', '$scope', 'signinService', 'lsService'];
 
-  function SigninCtrl(sc, utilService, $state, $scope, signinService) {
+  function SigninCtrl(sc, utilService, $state, $scope, signinService, lsService) {
     // Variables section
     var logger = utilService.getLogger();
     logger.debug("SigninCtrl start");
@@ -74,6 +74,8 @@
             utilService.appAlert(resp.messages);
             return;
           }
+          lsService.set("isSignedIn", true);
+          lsService.set("custId", resp.data.cust_id);
           $state.go(sc.hfStates.address);
         } catch (exception) {
           logger.error("exception: " + exception);
@@ -84,8 +86,8 @@
         $state.go(sc.hfStates.placeorder);
       }else{
         $state.go(sc.hfStates.address);
-      }
-*/
+      }*/
+
       logger.debug("signin ends");
     }
 

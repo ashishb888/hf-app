@@ -27,7 +27,7 @@ var urls = {
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, utilService) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, utilService, lsService, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -61,6 +61,19 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core'])
   /* Hides ionicLoading */
   $rootScope.$on('loadingHide', function() {
     $ionicLoading.hide();
+  });
+
+  $rootScope.$on('$stateChangeStart', function(event, toState) {
+    utilService.getLogger().debug("stateChangeStart function");
+
+    var isSignedIn = JSON.parse(lsService.get("isSignedIn"));
+
+    if (isSignedIn) {
+      if (toState.name == "signin") {
+        event.preventDefault();
+        $state.go("menu.placeorder");
+      }
+    }
   });
 })
 
@@ -108,17 +121,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core'])
 
   /* Whitelists URLs */
   $sceDelegateProvider.resourceUrlWhitelist(urlWhiteList);
-
-  // Satellizer configuration that specifies which API
-  // route the JWT should be retrieved from
-
-  // Redirect to the auth state if any other states
-  // are requested other than users
-
-  $urlRouterProvider.otherwise(function($injector, $location) {
-    var $state = $injector.get("$state");
-    $state.go("home");
-  });
 
   /* Interceptors pool */
   $httpProvider.interceptors.push(
