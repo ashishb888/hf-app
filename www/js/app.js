@@ -12,7 +12,7 @@ var urls = {
   prod: "",
   uat: "",
   dev: "",
-  local: "http://10.1.1.167:8000",
+  local: "/api/",
   tcUrl: "",
   prodStaticResUrl: "",
   devStaticResUrl: "",

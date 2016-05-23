@@ -1,8 +1,8 @@
 (function() {
   angular.module('starter').factory('utilService', utilService);
-  utilService.$inject = ['$ionicPopup', 'starterConfig', '$http', '$state', '$log', '$q'];
+  utilService.$inject = ['$ionicPopup', 'starterConfig', '$http', '$state', '$log', '$q', '$cordovaNetwork'];
 
-  function utilService($ionicPopup, sc, $http, $state, $log, $q) {
+  function utilService($ionicPopup, sc, $http, $state, $log, $q, $cordovaNetwork) {
     // Variables section
     var us = this;
     var logger = $log;
@@ -72,6 +72,7 @@
           isAppOnline = $cordovaNetwork.isOnline();
         }, false);
       } catch (exception) {
+        logger.error("exception: " + exception);
         return isAppOnline;
       } finally {
         logger.debug("isAppOnline: " + isAppOnline);

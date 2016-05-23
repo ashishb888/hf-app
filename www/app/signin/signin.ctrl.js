@@ -80,12 +80,31 @@
             lsService.set("isSignedIn", true);
             lsService.set("custId", resp.data.cust_id);
 
+            if (lsService.get("isAddressPresent") == "true") {
+              $state.go(sc.hfStates.placeorder);
+              return;
+            } else {
+              addressService.getAddress(lsService.get("custId"))
+                .then(function(sucResp1) {
+                  var resp1 = sucResp1.data;
+                  if (resp1.status !== sc.httpStatus.SUCCESS) {
+                    utilService.appAlert(resp1.messages);
+                    return;
+                  }
 
+                  if (resp1.data.isAddressPresent == true) {
+                    lsService.set("isAddressPresent", true);
+                    $state.go(sc.hfStates.placeorder);
+                    return;
+                  }
+                  $state.go(sc.hfStates.address);
+                }, function(errResp1) {});
+            }
           } catch (exception) {
             logger.error("exception: " + exception);
           }
-        }, function(errResp) {})
-        .then(function(resp) {
+        }, function(errResp) {});
+        /*.then(function(resp) {
           if (lsService.get("isAddressPresent") == "true") {
             $state.go(sc.hfStates.placeorder);
             return;
@@ -106,7 +125,7 @@
                 $state.go(sc.hfStates.address);
               }, function(errResp1) {});
           }
-        });
+        });*/
 
       /*if (signinCtrl.isAddressPresent) {
         $state.go(sc.hfStates.placeorder);
