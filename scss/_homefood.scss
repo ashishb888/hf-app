@@ -20,7 +20,7 @@
 .logo {
   @extend .c-center;
   content: url("../img/homemade.png");
-  width: 75%;
+  width: 60%;
   @include border-radius(15px);
 }
 
@@ -36,4 +36,10 @@
 
 .popup-head {
     border-bottom: 1px solid #ddd !important;
+}
+
+.app-error {
+    color: #B50404;
+    font-size: small;
+    white-space: initial;
 }

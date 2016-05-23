@@ -9804,7 +9804,7 @@ a.button {
 
 .logo {
   content: url("../img/homemade.png");
-  width: 75%;
+  width: 60%;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   -ms-border-radius: 15px;
@@ -9820,3 +9820,8 @@ a.button {
 
 .popup-head {
   border-bottom: 1px solid #ddd !important; }
+
+.app-error {
+  color: #B50404;
+  font-size: small;
+  white-space: initial; }

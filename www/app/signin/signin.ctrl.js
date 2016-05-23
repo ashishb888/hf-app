@@ -86,7 +86,6 @@
           }
         }, function(errResp) {})
         .then(function(resp) {
-          logger.debug("ABC: " + lsService.get("isAddressPresent"));
           if (lsService.get("isAddressPresent") == "true") {
             $state.go(sc.hfStates.placeorder);
             return;

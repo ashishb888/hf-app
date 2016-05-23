@@ -12,7 +12,7 @@ var urls = {
   prod: "",
   uat: "",
   dev: "",
-  local: "/api/",
+  local: "http://10.1.1.167:8000",
   tcUrl: "",
   prodStaticResUrl: "",
   devStaticResUrl: "",
@@ -25,7 +25,7 @@ var urls = {
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core'])
+angular.module('starter', ['ionic', 'ngCordova', 'ionic.service.core', 'ngMessages'])
 
 .run(function($ionicPlatform, $rootScope, $ionicLoading, utilService, lsService, $state) {
   $ionicPlatform.ready(function() {
