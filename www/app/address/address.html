@@ -37,11 +37,18 @@
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">{{addressCtrl.sa.residence}} address</span>
-          <input type="text" placeholder="{{addressCtrl.sa.residence}} address" ng-model="addressCtrl.sa.residenceAddr" ng-required="true" ng-minlength="3">
+          <input type="text" name="residenceAddr" placeholder="{{addressCtrl.sa.residence}} address" ng-model="addressCtrl.sa.residenceAddr" ng-required="true" ng-minlength="3" ng-minlength="20">
+          <div class="app-error" ng-messages="addressForm.residenceAddr.$error" ng-if="addressForm.residenceAddr.$dirty">
+            <div ng-message="required">{{addressCtrl.sa.residence}} address is required.</div>
+            <div ng-message="minlength">{{addressCtrl.sa.residence}} address must be at least 3 characters long.</div>
+            <div ng-message="maxlength">{{addressCtrl.sa.residence}} address can be at most 20 characters long.</div>
+          </div>
         </label>
-        <button class="button button-full button-assertive" ng-disabled="addressForm.$invalid" ng-click="addressCtrl.setAddress();">
-          Submit
-        </button>
+        <div class="padding">
+          <button class="button button-full button-assertive" ng-disabled="addressForm.$invalid" ng-click="addressCtrl.setAddress();">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   </ion-content>
