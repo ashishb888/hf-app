@@ -79,6 +79,11 @@ angular.module('starter').constant('starterConfig', (function() {
     }]
   };
 
+  var operatorStatus = {
+      avail: "AVAIL",
+      unavail: "UNAVAIL"
+  };
+
   switch (env) {
     case envLs.prod:
       ws = urls.prod;
@@ -106,7 +111,8 @@ angular.module('starter').constant('starterConfig', (function() {
     httpReq: httpReq,
     modal: modal,
     pullRefresher: pullRefresher,
-    dbConfig: dbConfig
+    dbConfig: dbConfig,
+    operatorStatus: operatorStatus
   };
 
 })());

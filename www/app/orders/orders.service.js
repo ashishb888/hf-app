@@ -11,7 +11,7 @@
 
     function placeOrder(req) {
       logger.debug("placeOrder() service");
-      return $http.post(sc.ws + '/placeorder', JSON.stringify(req), sc.httpReq.config);
+      return $http.post(sc.ws + '/placeorder', req, sc.httpReq.config);
     }
 
     function orders() {
